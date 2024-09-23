@@ -4,6 +4,10 @@
 
 O objetivo deste aplicativo é criar um sistema básico de autenticação de usuários com foco em segurança. O aplicativo deve permitir que um usuário crie uma conta e faça login, garantindo que suas credenciais sejam validadas e armazenadas de maneira segura. Além disso, o sistema deve implementar mecanismos de segurança para evitar ataques de injeção de SQL e aplicar autenticação de dois fatores via SMS. A senha dos usuários deve ser criptografada para maior proteção.
 
+## Link de Deploy
+
+- [Deploy do App na Vercel](https://seu-link-aqui.vercel.app)
+
 ## Requisitos Funcionais
 
 - [ ] **Formulário de Cadastro e Login**
