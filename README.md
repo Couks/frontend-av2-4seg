@@ -10,28 +10,25 @@ O objetivo deste aplicativo é criar um sistema básico de autenticação de usu
 
 ## Requisitos Funcionais
 
-- [ ] **Formulário de Cadastro e Login**
+- [x] **Formulário de Cadastro e Login**
 
-  - [ ] Criar um formulário com os campos username e password.
-  - [ ] Aplicar uma validação de senha utilizando expressões regulares (regex), assegurando que a senha atenda aos critérios de segurança, como comprimento mínimo e presença de caracteres especiais permitidos.
+  - [x] Criar um formulário com os campos nome, sobrenome, usuário, telefone e senha.
+  - [x] Aplicar uma validação de senha utilizando expressões regulares (regex), assegurando que a senha atenda aos critérios de segurança, como comprimento mínimo e presença de caracteres especiais permitidos.
 
 - [ ] **Simulação de Banco de Dados**
 
-  - [ ] Simular o banco de dados em variáveis que armazenem os dados de usuários (username e password).
-  - [ ] Implementar uma consulta SQL para retornar o usuário com base nas informações fornecidas:
-    ```sql
-    SELECT * FROM USER WHERE username="$username" AND pass="$password"
-    ```
+  - [x] Configurar o banco
+  - [ ] Simular o banco de dados em variáveis que armazenem os dados de usuários.
   - [ ] Exibir o resultado da consulta na tela.
 
-- [ ] **Proteção contra Injeção de SQL**
+- [x] **Proteção contra Injeção de SQL**
 
-  - [ ] Verificar se o campo de senha é vulnerável a injeção de SQL, por exemplo, testando a string `OR 1=1`.
-  - [ ] Aplicar medidas de segurança para garantir que caracteres inseguros, como aspas simples e duplas, não sejam aceitos no campo de senha.
+  - [x] Verificar se o campo de senha é vulnerável a injeção de SQL, por exemplo, testando a string `OR 1=1`.
+  - [x] Aplicar medidas de segurança para garantir que caracteres inseguros, como aspas simples e duplas, não sejam aceitos no campo de senha.
 
 - [ ] **Armazenamento de Usuário e Senha**
 
-  - [ ] Criar um banco de dados (ou equivalente) para armazenar o username e a password.
+  - [ ] Criar um banco de dados para armazenar o username e a password.
   - [ ] Criptografar a senha utilizando o algoritmo SHA256 antes de armazená-la.
 
 - [ ] **Autenticação de Dois Fatores (2FA)**
@@ -45,8 +42,8 @@ O objetivo deste aplicativo é criar um sistema básico de autenticação de usu
 ## Requisitos Não Funcionais
 
 - [ ] **Segurança**: A aplicação deve implementar medidas de segurança para evitar ataques de injeção de SQL e garantir que as senhas sejam criptografadas.
-- [ ] **Desempenho**: O aplicativo deve ser capaz de realizar as consultas e verificações de segurança de maneira eficiente.
-- [ ] **Usabilidade**: O formulário deve ser intuitivo e fornecer feedback claro ao usuário caso uma senha não atenda aos critérios de segurança ou contenha caracteres proibidos.
+- [x] **Desempenho**: O aplicativo deve ser capaz de realizar as consultas e verificações de segurança de maneira eficiente.
+- [x] **Usabilidade**: O formulário deve ser intuitivo e fornecer feedback claro ao usuário caso uma senha não atenda aos critérios de segurança ou contenha caracteres proibidos.
 
 ## Funcionalidades Adicionais
 
