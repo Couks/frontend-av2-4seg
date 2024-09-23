@@ -6,7 +6,7 @@ O objetivo deste aplicativo é criar um sistema básico de autenticação de usu
 
 ## Link de Deploy
 
-- [Deploy do App na Vercel](https://seu-link-aqui.vercel.app)
+- [Deploy do App na Vercel](https://security-web-app.vercel.app/)
 
 ## Requisitos Funcionais
 
