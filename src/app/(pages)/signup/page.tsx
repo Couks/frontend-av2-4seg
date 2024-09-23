@@ -16,6 +16,9 @@ import { AlertDescription } from "@/components/ui/alert";
 import { CheckCircle2, XCircle, Eye, EyeOff } from "lucide-react";
 import Link from "next/link";
 
+interface Errors {
+  [key: string]: string;
+}
 export default function SignupComponent() {
   const [formData, setFormData] = useState({
     nome: "",
@@ -24,7 +27,7 @@ export default function SignupComponent() {
     telefone: "",
     password: "",
   });
-  const [errors, setErrors] = useState({});
+  const [errors, setErrors] = useState<Errors>({});
   const [passwordChecks, setPasswordChecks] = useState({
     hasNumber: false,
     hasSpecialChar: false,
@@ -86,7 +89,7 @@ export default function SignupComponent() {
     const isValid = Object.values(checks).every(Boolean);
     setErrors((prev) => ({
       ...prev,
-      password: isValid ? "" : "Password does not meet all requirements",
+      password: isValid ? "" : "Senha não bate com as regras abaixo",
     }));
   };
 
