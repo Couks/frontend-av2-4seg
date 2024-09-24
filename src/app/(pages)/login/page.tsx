@@ -14,25 +14,26 @@ import {
 } from "@/components/ui/card";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import Link from "next/link";
+import { useAuth } from "@/hooks/auth/use-auth"; // Ajuste o caminho conforme necessário
+import { SymbolIcon } from "@radix-ui/react-icons"; // Importando o ícone de carregamento
 
 export default function LoginComponent() {
-  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
+  const { login, error } = useAuth(); // Usando o hook de autenticação
+  const [loading, setLoading] = useState(false); // Estado para controlar o carregamento
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setError("");
+    setLoading(true); // Ativando o estado de carregamento
 
-    if (!username || !password) {
-      setError("Por favor, preencha todos os campos");
-      return;
+    const result = await login(email, password);
+    setLoading(false); // Desativando o estado de carregamento
+
+    if (result) {
+      alert("Login bem-sucedido!");
+      // Redirecionar ou atualizar o estado da aplicação como necessário
     }
-
-    // Here you would typically make an API call to authenticate the user
-    console.log("Login attempted with:", { username, password });
-    // For demo purposes, let's simulate a successful login
-    alert("Login successful!");
   };
 
   return (
@@ -45,13 +46,13 @@ export default function LoginComponent() {
         <CardContent>
           <form onSubmit={handleSubmit} className="space-y-4">
             <div className="space-y-2">
-              <Label htmlFor="username">Usuário</Label>
+              <Label htmlFor="email">E-mail</Label>
               <Input
-                id="username"
-                type="text"
-                placeholder="Digite seu nome de usuário"
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
+                id="email"
+                type="email"
+                placeholder="Digite seu e-mail"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
                 required
               />
             </div>
@@ -71,8 +72,15 @@ export default function LoginComponent() {
                 <AlertDescription>{error}</AlertDescription>
               </Alert>
             )}
-            <Button type="submit" className="w-full">
-              Entrar
+            <Button type="submit" className="w-full" disabled={loading}>
+              {loading ? (
+                <>
+                  <SymbolIcon className="animate-spin h-4 w-4 mr-2" />
+                  Carregando...
+                </>
+              ) : (
+                "Entrar"
+              )}
             </Button>
           </form>
         </CardContent>
