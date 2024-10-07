@@ -14,10 +14,10 @@ export default function Settings() {
     loading: updating,
     error: updateError,
   } = useUpdateUser();
-  const [name, setName] = useState(user?.firstName || "");
+  const [name, setName] = useState(user?.nome || "");
 
   const handleSave = async () => {
-    await updateUserData({ firstName: name });
+    await updateUserData({ nome: name });
   };
 
   return (

@@ -1,4 +1,3 @@
-// src/hooks/useUpdateUser.ts
 import { useState } from "react";
 import { User } from "@/types/User";
 
@@ -11,14 +10,17 @@ export const useUpdateUser = () => {
     setError(null);
 
     try {
-      const response = await fetch("http://localhost:3001/security/user/data", {
-        method: "PUT",
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(userData),
-      });
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}/users/}`,
+        {
+          method: "PUT",
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(userData),
+        }
+      );
 
       if (!response.ok) {
         throw new Error("Erro ao atualizar dados do usuário");

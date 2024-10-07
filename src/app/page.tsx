@@ -13,11 +13,11 @@ export default function Home() {
           dois fatores. Escolha uma das opções abaixo para continuar:
         </p>
         <div className="flex gap-4 items-center">
-          <Link href="/login">
+          <Link href="/login/signin">
             <Button variant="outline">Fazer Login</Button>
           </Link>
 
-          <Link href="/signup">
+          <Link href="/login/signup">
             <Button variant="secondary">Cadastrar</Button>
           </Link>
         </div>

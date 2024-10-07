@@ -1,36 +1,38 @@
 import { useState } from "react";
-import { useRouter } from "next/router"; // Importe useRouter
+import { useRouter } from "next/navigation";
 
 export const useAuth = () => {
   const [error, setError] = useState("");
-  const router = useRouter(); // Inicialize useRouter
+  const router = useRouter();
 
-  const login = async (email: string, password: string) => {
+  const login = async (email: string, senha: string) => {
     setError("");
 
-    if (!email || !password) {
+    if (!email || !senha) {
       setError("Por favor, preencha todos os campos");
-      return null; // Retorne null se os campos não estiverem preenchidos
+      return null;
     }
 
-    console.log("Tentativa de login com:", { email, password });
+    console.log("Tentativa de login com:", {
+      email,
+      senha: typeof senha,
+    });
 
     try {
       const response = await fetch(
-        "http://localhost:3001/security/auth/login",
+        `${process.env.NEXT_PUBLIC_API_URL}/auth/login}`,
         {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({ email, password }),
+          body: JSON.stringify({ email, senha }),
         }
       );
 
       console.log("Resposta do servidor:", response);
 
       if (!response.ok) {
-        // Tente obter detalhes do erro da resposta
         const errorData = await response.json();
         console.error("Erro no servidor:", errorData);
 
@@ -62,7 +64,7 @@ export const useAuth = () => {
       localStorage.setItem("token", token);
       router.push("/dashboard");
       return { token };
-    } catch (err: any) {
+    } catch (err) {
       console.error("Erro ao realizar login:", err);
       setError(
         "Erro de rede. Verifique sua conexão ou tente novamente mais tarde."

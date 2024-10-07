@@ -1,27 +1,30 @@
-// src/hooks/useUser.ts
+// src/hooks/user/use-user.ts
+import { useUserContext } from "@/contexts/useContext";
 import { useEffect, useState } from "react";
-import { User } from "@/types/User";
 
 export const useUser = () => {
-  const [user, setUser] = useState<User | null>(null);
+  const { user, setUser, token, setToken } = useUserContext();
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
   const fetchUserData = async () => {
     try {
-      const response = await fetch("http://localhost:3001/security/user/data", {
-        method: "GET",
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-          "Content-Type": "application/json",
-        },
-      });
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}/users/}`,
+        {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+        }
+      );
 
       if (!response.ok) {
         throw new Error("Erro ao buscar dados do usuário");
       }
 
-      const data: User = await response.json();
+      const data = await response.json();
       setUser(data);
     } catch (err: any) {
       setError(err.message);
@@ -32,7 +35,12 @@ export const useUser = () => {
 
   useEffect(() => {
     fetchUserData();
-  }, []);
+  }, [token]);
 
-  return { user, loading, error };
+  const storeToken = (newToken: string) => {
+    localStorage.setItem("token", newToken);
+    setToken(newToken);
+  };
+
+  return { user, loading, error, storeToken };
 };

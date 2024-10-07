@@ -14,31 +14,32 @@ import {
 } from "@/components/ui/card";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import Link from "next/link";
-import { useAuth } from "@/hooks/auth/use-auth"; // Ajuste o caminho conforme necessário
-import { SymbolIcon } from "@radix-ui/react-icons"; // Importando o ícone de carregamento
+import { useAuth } from "@/hooks/auth/use-auth";
+import { SymbolIcon } from "@radix-ui/react-icons";
 
 export default function LoginComponent() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const { login, error } = useAuth(); // Usando o hook de autenticação
-  const [loading, setLoading] = useState(false); // Estado para controlar o carregamento
+  const { login, error } = useAuth();
+  const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setLoading(true); // Ativando o estado de carregamento
+    setLoading(true);
 
     const result = await login(email, password);
-    setLoading(false); // Desativando o estado de carregamento
+    setLoading(false);
 
     if (result) {
-      alert("Login bem-sucedido!");
-      // Redirecionar ou atualizar o estado da aplicação como necessário
+      console.log("Login bem-sucedido!");
+    } else {
+      console.log("Login falhou!");
     }
   };
 
   return (
-    <main className="flex items-center justify-center h-screen bg-black">
-      <Card className="w-full max-w-md mx-auto">
+    <main className="flex items-center justify-items-center h-screen p-8 bg-black">
+      <Card className="w-full max-w-xl md:mx-auto">
         <CardHeader>
           <CardTitle>Login</CardTitle>
           <CardDescription>Insira suas credenciais para entrar</CardDescription>
@@ -87,7 +88,7 @@ export default function LoginComponent() {
         <CardFooter className="flex justify-center">
           <p className="text-sm text-muted-foreground">
             Não tem uma conta?{" "}
-            <Link href="/signup" className="text-primary hover:underline">
+            <Link href="/login/signup" className="text-primary hover:underline">
               Cadastre-se
             </Link>
           </p>
