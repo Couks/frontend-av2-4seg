@@ -1,85 +1,121 @@
-// src/layouts/DashboardLayout.tsx
 "use client";
-import { useUser } from "@/hooks/user/use-user";
-import { User, Cog, FileChartColumn } from "lucide-react";
-import { useState } from "react";
 
-interface MenuItem {
-  name: string;
-  icon: JSX.Element;
-  key: string;
-}
+import { useRouter } from "next/navigation";
+import Link from "next/link";
+import { LogOut, Settings, LayoutDashboard, Shield } from "lucide-react";
+import { useAuth } from "@/contexts/auth-context";
+import {
+  Sidebar,
+  SidebarContent,
+  SidebarFooter,
+  SidebarGroup,
+  SidebarGroupContent,
+  SidebarGroupLabel,
+  SidebarHeader,
+  SidebarMenu,
+  SidebarMenuButton,
+  SidebarMenuItem,
+  SidebarProvider,
+  SidebarRail,
+  SidebarTrigger,
+} from "@/components/ui/sidebar";
+import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
+import { ThemeToggle } from "@/components/theme-toggle";
 
-interface MenuItems {
-  [key: string]: MenuItem[];
-}
+export default function DashboardLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  const router = useRouter();
+  const { user, logout } = useAuth();
 
-const menuItems: MenuItems = {
-  admin: [
-    { name: "Perfil", icon: <User />, key: "profile" },
-    { name: "Configurações", icon: <Cog />, key: "settings" },
-    { name: "Relatórios", icon: <FileChartColumn />, key: "reports" },
-  ],
-  professor: [
-    { name: "Perfil", icon: <User />, key: "profile" },
-    { name: "Relatórios", icon: <FileChartColumn />, key: "reports" },
-  ],
-  aluno: [{ name: "Perfil", icon: <User />, key: "profile" }],
-};
-
-export default function DashboardLayout() {
-  const { user } = useUser();
-  const [activeTab, setActiveTab] = useState<string>("profile");
-
-  const userProfile = user?.perfil || "admin";
-  const availableMenuItems = menuItems[userProfile] || [];
+  const handleLogout = async () => {
+    await logout();
+    router.replace("/login/signin");
+  };
 
   return (
-    <div className="flex min-h-screen ">
-      <aside className="sm:w-1/6 sm:block hidden bg-gray-800 text-white p-6 rounded-r-lg">
-        <div className="text-2xl font-bold mb-8">Dashboard</div>
-        <nav className="flex flex-col justify-around">
-          <ul className="space-y-2">
-            {availableMenuItems.map((item) => (
-              <li key={item.key}>
-                <button
-                  onClick={() => setActiveTab(item.key)}
-                  className={`flex items-center 
-                    w-full text-left p-2 hover:bg-gray-700 rounded-md transition ${
-                      activeTab === item.key ? "bg-gray-700" : ""
-                    }`}
+    <SidebarProvider defaultOpen>
+      <div className="flex min-h-screen bg-background text-foreground">
+        <Sidebar>
+          <SidebarHeader>
+            <div className="flex items-center gap-2 text-primary p-4">
+              <Shield className="h-6 w-6" />
+              <span className="font-semibold text-lg">Dashboard</span>
+            </div>
+          </SidebarHeader>
+
+          <SidebarContent>
+            <SidebarGroup>
+              <SidebarGroupLabel>Menu</SidebarGroupLabel>
+              <SidebarGroupContent>
+                <SidebarMenu>
+                  <SidebarMenuItem>
+                    <SidebarMenuButton asChild>
+                      <Link href="/dashboard">
+                        <LayoutDashboard />
+                        <span>Dashboard</span>
+                      </Link>
+                    </SidebarMenuButton>
+                  </SidebarMenuItem>
+                  <SidebarMenuItem>
+                    <SidebarMenuButton asChild>
+                      <Link href="/dashboard/settings">
+                        <Settings />
+                        <span>Configurações</span>
+                      </Link>
+                    </SidebarMenuButton>
+                  </SidebarMenuItem>
+                </SidebarMenu>
+              </SidebarGroupContent>
+            </SidebarGroup>
+          </SidebarContent>
+
+          <SidebarFooter>
+            <SidebarGroupLabel>Usuário</SidebarGroupLabel>
+            <SidebarGroupContent>
+              <div className="px-4 py-2">
+                <div className="flex items-center gap-3 mb-4">
+                  <Avatar>
+                    <AvatarImage
+                      src="https://avatars.githubusercontent.com/u/124599?v=4"
+                      alt="Morty"
+                    />
+                    <AvatarFallback>MO</AvatarFallback>
+                  </Avatar>
+                  <div className="flex flex-col">
+                    <span className="font-medium text-sm text-foreground">
+                      {user?.name}
+                    </span>
+                    <span className="text-xs text-muted-foreground">
+                      {user?.email}
+                    </span>
+                  </div>
+                </div>
+                <SidebarMenuButton
+                  variant="outline"
+                  className="w-full justify-start text-destructive hover:text-destructive-foreground hover:bg-destructive"
+                  onClick={handleLogout}
                 >
-                  <span className="mr-2">{item.icon}</span>
-                  <p>{item.name}</p>
-                </button>
-              </li>
-            ))}
-          </ul>
+                  <LogOut />
+                  <span className="text-sm font-bold">Sair</span>
+                </SidebarMenuButton>
+              </div>
+            </SidebarGroupContent>
+          </SidebarFooter>
+        </Sidebar>
 
-          {/* Informações do usuário */}
-          <div className="bg-slate-700 text-white p-4 rounded-md">
-            <h2 className="text-md font-bold mb-2">Informações do Usuário</h2>
-            <ul className="space-y-1 text-sm">
-              <li> {user?.email}</li>
-              <li>{user?.nome}</li>
-            </ul>
+        <main className="flex-1 w-full overflow-y-auto">
+          <div className="absolute top-0 right-1">
+            <SidebarTrigger />
           </div>
-        </nav>
-      </aside>
-
-      <div className="flex-1 flex flex-col">
-        <header className="bg-white shadow-sm h-16 flex items-center justify-between px-6">
-          <h1 className="text-xl font-semibold text-gray-900">
-            Bem-vindo de volta, {user?.nome}!
-          </h1>
-        </header>
-
-        <main className="flex-1 overflow-y-auto bg-gray-100 p-6">
-          {activeTab === "profile" && <div>Perfil do Usuário</div>}
-          {activeTab === "settings" && <div>Configurações</div>}
-          {activeTab === "reports" && <div>Relatórios</div>}
+          <div className="absolute top-0 right-8">
+            <ThemeToggle />
+          </div>
+          <div className="h-full">{children}</div>
         </main>
       </div>
-    </div>
+    </SidebarProvider>
   );
 }
