@@ -2,8 +2,6 @@
 
 import { createContext, useContext, useState, useEffect } from "react";
 import { api } from "@/service/api.service";
-import { useRouter } from "next/navigation";
-import type { ApiEndpoints } from "@/types/api.types";
 
 interface User {
   id: number;
@@ -34,7 +32,6 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const router = useRouter();
 
   const fetchUserData = async (token: string) => {
     try {
@@ -52,11 +49,13 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
           twoFactorEnabled: userData.twoFactorEnabled,
           isVerified: userData.isVerified,
         });
+        setError(null);
         return true;
       }
       return false;
     } catch (error) {
       console.error("Error fetching user data:", error);
+      setError("Erro ao buscar dados do usuário");
       return false;
     }
   };
@@ -66,6 +65,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     password: string
   ): Promise<{ success: boolean; tempToken?: string }> => {
     try {
+      setError(null);
       const response = await api.auth.login({ email, password });
       console.log("Login response:", response);
 
@@ -85,7 +85,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
       return { success: false };
     } catch (error) {
-      console.error("Login error:", error);
+      setError("Erro ao realizar login. Verifique suas credenciais.");
       throw error;
     }
   };
@@ -104,12 +104,14 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
           localStorage.removeItem("accessToken");
           localStorage.removeItem("refreshToken");
           setUser(null);
+          setError("Sessão inválida");
         }
       } catch (error) {
         console.error("Session validation error:", error);
         localStorage.removeItem("accessToken");
         localStorage.removeItem("refreshToken");
         setUser(null);
+        setError("Erro ao validar sessão");
       } finally {
         setLoading(false);
       }
@@ -120,10 +122,12 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   const logout = async () => {
     try {
+      setError(null);
       const response = await api.auth.logout();
       console.log("Logout response:", response);
     } catch (error) {
       console.error("Erro no logout:", error);
+      setError("Erro ao realizar logout");
     } finally {
       localStorage.removeItem("accessToken");
       localStorage.removeItem("refreshToken");
@@ -136,6 +140,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     tempToken: string
   ): Promise<boolean> => {
     try {
+      setError(null);
       const response = await api.user.verify2FA(code, tempToken);
       const { accessToken, refreshToken } = response;
 
@@ -145,9 +150,11 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         await fetchUserData(accessToken);
         return true;
       }
+      setError("Código 2FA inválido");
       return false;
     } catch (error) {
       console.error("Erro na verificação 2FA:", error);
+      setError("Erro ao verificar código 2FA");
       return false;
     }
   };

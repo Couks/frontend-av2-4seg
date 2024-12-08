@@ -120,7 +120,12 @@ export interface ApiEndpoints {
       };
       response: {
         valid: boolean;
-        payload?: any;
+        payload?: {
+          sub: number;
+          type: string;
+          exp: number;
+          iat: number;
+        };
       };
     };
   };

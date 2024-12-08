@@ -25,13 +25,13 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { api } from "@/service/api.service";
 
-export interface SignupFormData {
+interface SignupFormData {
   nome: string;
   email: string;
   senha: string;
 }
 
-export interface PasswordChecks {
+interface PasswordChecks {
   hasNumber: boolean;
   hasSpecialChar: boolean;
   hasUpperCase: boolean;
@@ -40,13 +40,7 @@ export interface PasswordChecks {
   atLeast8Chars: boolean;
 }
 
-export const initialFormData: SignupFormData = {
-  nome: "",
-  email: "",
-  senha: "",
-};
-
-export const initialPasswordChecks: PasswordChecks = {
+const initialPasswordChecks: PasswordChecks = {
   hasNumber: false,
   hasSpecialChar: false,
   hasUpperCase: false,
@@ -55,7 +49,7 @@ export const initialPasswordChecks: PasswordChecks = {
   atLeast8Chars: false,
 };
 
-export const validatePassword = (password: string): PasswordChecks => ({
+const validatePassword = (password: string): PasswordChecks => ({
   hasNumber: /\d/.test(password),
   hasSpecialChar: /[!@#$%^&*(),.?":{}|<>]/.test(password),
   hasUpperCase: /[A-Z]/.test(password),
@@ -64,7 +58,7 @@ export const validatePassword = (password: string): PasswordChecks => ({
   atLeast8Chars: password.length >= 8,
 });
 
-export const validateField = (name: string, value: string): string => {
+const validateField = (name: string, value: string): string => {
   switch (name) {
     case "nome":
       return value.trim().length < 2
@@ -85,7 +79,12 @@ interface FormErrors {
   [key: string]: string;
 }
 
-export const useSignupController = () => {
+const useSignupController = () => {
+  const initialFormData: SignupFormData = {
+    nome: "",
+    email: "",
+    senha: "",
+  };
   const [formData, setFormData] = useState<SignupFormData>(initialFormData);
   const [errors, setErrors] = useState<FormErrors>({});
   const [passwordChecks, setPasswordChecks] = useState<PasswordChecks>(

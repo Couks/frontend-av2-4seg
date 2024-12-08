@@ -14,6 +14,7 @@ import {
 import { AlertDescription } from "@/components/ui/alert";
 import { api } from "@/service/api.service";
 import { Shield, Mail, ArrowRight, AlertCircle, ArrowLeft } from "lucide-react";
+import { AxiosError } from "axios";
 
 export default function ForgotPasswordPage() {
   const [email, setEmail] = useState("");
@@ -31,8 +32,11 @@ export default function ForgotPasswordPage() {
     try {
       await api.user.forgotPassword(email);
       setSuccess(true);
-    } catch (err: any) {
-      setError(err.response?.data?.message || "Erro ao solicitar recuperação");
+    } catch (err) {
+      const error = err as AxiosError<{ message: string }>;
+      setError(
+        error.response?.data?.message || "Erro ao solicitar recuperação"
+      );
     } finally {
       setLoading(false);
     }
