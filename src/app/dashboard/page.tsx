@@ -11,11 +11,9 @@ import {
 import {
   Shield,
   Key,
-  UserCheck,
   Bell,
   Activity,
   Lock,
-  AlertTriangle,
   CheckCircle2,
   Settings,
   Users,
@@ -27,6 +25,33 @@ import { Button } from "@/components/ui/button";
 
 export default function Dashboard() {
   const { user } = useAuth();
+
+  const recommendations = [
+    {
+      id: "2fa",
+      enabled: user?.twoFactorEnabled,
+      title: "Autenticação em duas etapas",
+      description: "Reforce sua segurança",
+      icon: Shield,
+      bgColor: "primary",
+    },
+    {
+      id: "strongPassword",
+      enabled: true,
+      title: "Senha forte",
+      description: "Use combinações seguras",
+      icon: Key,
+      bgColor: "yellow-500",
+    },
+    {
+      id: "emailVerification",
+      enabled: user?.isVerified,
+      title: "Verificação de email",
+      description: "Mantenha seus dados atualizados",
+      icon: Bell,
+      bgColor: "blue-500",
+    },
+  ];
 
   return (
     <div className="flex flex-col gap-8 p-8 max-w-7xl mx-auto">
@@ -150,41 +175,40 @@ export default function Dashboard() {
           </CardHeader>
           <CardContent>
             <ul className="space-y-4">
-              <li className="flex items-center gap-4 p-3 rounded-md bg-primary/5 hover:bg-primary/10 transition-colors">
-                <div className="flex h-10 w-10 items-center justify-center rounded-full bg-primary/10">
-                  <Shield className="h-5 w-5 text-primary" />
-                </div>
-                <div>
-                  <p className="text-sm font-medium">
-                    Autenticação em duas etapas
-                  </p>
-                  <p className="text-xs text-muted-foreground">
-                    Reforce sua segurança
-                  </p>
-                </div>
-              </li>
-              <li className="flex items-center gap-4 p-3 rounded-md bg-yellow-500/5 hover:bg-yellow-500/10 transition-colors">
-                <div className="flex h-10 w-10 items-center justify-center rounded-full bg-yellow-500/10">
-                  <Key className="h-5 w-5 text-yellow-500" />
-                </div>
-                <div>
-                  <p className="text-sm font-medium">Senha forte</p>
-                  <p className="text-xs text-muted-foreground">
-                    Use combinações seguras
-                  </p>
-                </div>
-              </li>
-              <li className="flex items-center gap-4 p-3 rounded-md bg-blue-500/5 hover:bg-blue-500/10 transition-colors">
-                <div className="flex h-10 w-10 items-center justify-center rounded-full bg-blue-500/10">
-                  <Bell className="h-5 w-5 text-blue-500" />
-                </div>
-                <div>
-                  <p className="text-sm font-medium">Verificação de email</p>
-                  <p className="text-xs text-muted-foreground">
-                    Mantenha seus dados atualizados
-                  </p>
-                </div>
-              </li>
+              {recommendations.map(
+                (rec) =>
+                  !rec.enabled && (
+                    <li
+                      key={rec.id}
+                      className={`flex items-center gap-4 p-3 rounded-md bg-${rec.bgColor}/5 hover:bg-${rec.bgColor}/10 transition-colors`}
+                    >
+                      <div
+                        className={`flex h-10 w-10 items-center justify-center rounded-full bg-${rec.bgColor}/10`}
+                      >
+                        <rec.icon className={`h-5 w-5 text-${rec.bgColor}`} />
+                      </div>
+                      <div>
+                        <p className="text-sm font-medium">{rec.title}</p>
+                        <p className="text-xs text-muted-foreground">
+                          {rec.description}
+                        </p>
+                      </div>
+                    </li>
+                  )
+              )}
+              {recommendations.every((rec) => rec.enabled) && (
+                <li className="flex items-center gap-4 p-3 rounded-md bg-green-500/5">
+                  <div className="flex h-10 w-10 items-center justify-center rounded-full bg-green-500/10">
+                    <CheckCircle2 className="h-5 w-5 text-green-500" />
+                  </div>
+                  <div>
+                    <p className="text-sm font-medium">Tudo configurado!</p>
+                    <p className="text-xs text-muted-foreground">
+                      Sua conta está bem protegida
+                    </p>
+                  </div>
+                </li>
+              )}
             </ul>
           </CardContent>
         </Card>

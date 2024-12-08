@@ -16,6 +16,7 @@ import { Eye, EyeOff, Shield, Mail, Lock } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/contexts/auth-context";
+import { AxiosError } from "axios";
 
 export default function LoginComponent() {
   const [formData, setFormData] = useState({
@@ -47,10 +48,11 @@ export default function LoginComponent() {
       } else if (result.tempToken) {
         router.push(`/login/2fa?tempToken=${result.tempToken}`);
       }
-    } catch (err: any) {
-      console.error("Login error:", err);
+    } catch (err) {
+      const error = err as AxiosError<{ message: string }>;
+      console.error("Login error:", error);
       setErrors({
-        submit: err.response?.data?.message || "Erro ao fazer login",
+        submit: error.response?.data?.message || "Erro ao fazer login",
       });
     } finally {
       setLoading(false);

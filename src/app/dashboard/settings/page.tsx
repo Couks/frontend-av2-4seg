@@ -14,6 +14,7 @@ import { AlertDescription } from "@/components/ui/alert";
 import Image from "next/image";
 import { Shield, Lock, Settings, Key, CheckCircle2 } from "lucide-react";
 import { api } from "@/service/api.service";
+import { User } from "@/types/user";
 
 export default function SettingsPage() {
   const [verificationCode, setVerificationCode] = useState("");
@@ -21,7 +22,7 @@ export default function SettingsPage() {
   const [secret, setSecret] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
-  const [user, setUser] = useState<any>(null);
+  const [user, setUser] = useState<User | null>(null);
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -53,7 +54,7 @@ export default function SettingsPage() {
       setLoading(true);
       setError("");
       const response = await api.user.confirm2FA(verificationCode, secret);
-      if (response.success) {
+      if (response.success && user) {
         setQrCode("");
         setSecret("");
         setVerificationCode("");
