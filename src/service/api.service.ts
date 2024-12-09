@@ -1,7 +1,7 @@
 import axios, { AxiosError, InternalAxiosRequestConfig } from "axios";
 import type { ApiEndpoints } from "../types/api.types";
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:3001";
+const API_URL = "https://backend-av2-4seg.onrender.com";
 
 // Criar instância do axios
 const axiosInstance = axios.create({
