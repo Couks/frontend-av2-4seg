@@ -4,13 +4,15 @@ import { Shield, Lock, ArrowRight } from "lucide-react";
 
 export default function Home() {
   return (
-    <div className="flex min-h-screen flex-col items-center justify-center bg-gradient-to-b from-background to-secondary/20">
+    <div className="flex max-h-screen flex-col items-center justify-center bg-gradient-to-b from-background to-secondary/20">
       <main className="container flex flex-col items-center justify-center gap-12 px-4 py-16">
         <div className="flex flex-col items-center gap-4">
-          <Shield className="h-16 w-16 text-primary animate-pulse" />
-          <h1 className="text-center text-4xl font-bold text-primary py-2">
-            Security Web App
-          </h1>
+          <div className="flex items-center justify-center gap-2">
+            <Shield className="h-10 w-10 text-primary animate-pulse bg-gray-200 rounded-full p-1" />
+            <h1 className="text-center text-4xl font-bold text-primary py-2">
+              Security Web App
+            </h1>
+          </div>
           <p className="max-w-[42rem] text-center text-muted-foreground sm:text-xl">
             Uma plataforma moderna e segura com autenticação de dois fatores
             para proteger seus dados.
