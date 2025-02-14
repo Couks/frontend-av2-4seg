@@ -95,7 +95,7 @@ export default function DashboardLayout({
                 <div className="flex justify-between gap-4">
                   <SidebarMenuButton
                     variant="outline"
-                    className="w-auto text-destructive hover:text-destructive-foreground hover:bg-destructive"
+                    className="w-auto text-foreground hover:text-white hover:bg-red-500"
                     onClick={handleLogout}
                   >
                     <LogOut />
@@ -108,8 +108,7 @@ export default function DashboardLayout({
           </SidebarFooter>
         </Sidebar>
 
-        <main className="flex-1 w-full overflow-y-auto">
-          <SidebarTrigger />
+        <main className="flex-1 w-full">
           <div className="h-full">{children}</div>
         </main>
       </div>

@@ -54,7 +54,7 @@ export default function Dashboard() {
   ];
 
   return (
-    <div className="flex flex-col gap-8 p-4 max-w-7xl mx-auto">
+    <div className="flex flex-col gap-4 p-6 max-w-7xl mx-auto">
       {/* Header Section */}
       <div className="flex flex-col gap-4 bg-gradient-to-r from-primary/10 to-primary/5 rounded-md p-4">
         <div className="flex items-center gap-4">
