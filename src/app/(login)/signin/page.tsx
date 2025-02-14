@@ -160,7 +160,7 @@ export default function LoginComponent() {
         </CardContent>
         <CardFooter className="flex justify-center pb-8">
           <span className="text-muted-foreground">
-            Don't have an account?{" "}
+            Don&apos;t have an account?{" "}
             <Link
               href="/signup"
               className="text-primary font-semibold hover:underline transition-colors"
