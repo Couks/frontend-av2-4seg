@@ -9,12 +9,13 @@ const axiosInstance = axios.create({
   // Configurações do CORS
   withCredentials: true, // Permite enviar cookies em requisições cross-origin
   headers: {
-    'Content-Type': 'application/json',
-    'Accept': 'application/json',
-    'Access-Control-Allow-Origin': '*',
-    'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE,PATCH,OPTIONS',
-    'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept, Authorization'
-  }
+    "Content-Type": "application/json",
+    Accept: "application/json",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Methods": "GET,PUT,POST,DELETE,PATCH,OPTIONS",
+    "Access-Control-Allow-Headers":
+      "Origin, X-Requested-With, Content-Type, Accept, Authorization",
+  },
 });
 
 // Variáveis para controle do refresh
@@ -49,7 +50,7 @@ axiosInstance.interceptors.request.use(
       config.headers.Authorization = `Bearer ${token}`;
     }
     // Garantir que os headers CORS sejam mantidos
-    config.headers['Access-Control-Allow-Origin'] = '*';
+    config.headers["Access-Control-Allow-Origin"] = "*";
     return config;
   },
   (error) => Promise.reject(error)
