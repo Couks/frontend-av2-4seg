@@ -121,6 +121,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     try {
       setError(null);
       const response = await api.auth.logout();
+      console.log(response);
     } catch (error) {
       console.error("Erro no logout:", error);
       setError("Erro ao realizar logout");

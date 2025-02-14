@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import { Shield, Lock, ArrowRight, UserPlus, Key } from "lucide-react";
+import { Shield, ArrowRight, UserPlus, Key } from "lucide-react";
 import { ThemeToggle } from "@/components/theme-toggle";
 
 export default function Home() {
