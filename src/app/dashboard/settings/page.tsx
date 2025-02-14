@@ -30,7 +30,7 @@ export default function SettingsPage() {
         const userData = await api.user.me();
         setUser(userData);
       } catch (err) {
-        console.error("Erro ao buscar dados do usuário:", err);
+        console.error("Error fetching user data:", err);
       }
     };
     fetchUser();
@@ -43,7 +43,7 @@ export default function SettingsPage() {
       setQrCode(response.qrCode);
       setSecret(response.secret);
     } catch (err) {
-      setError("Erro ao ativar 2FA. Tente novamente.");
+      setError("Error enabling 2FA. Please try again.");
     } finally {
       setLoading(false);
     }
@@ -59,10 +59,10 @@ export default function SettingsPage() {
         setSecret("");
         setVerificationCode("");
         setUser({ ...user, twoFactorEnabled: true });
-        alert("2FA ativado com sucesso!");
+        alert("2FA enabled successfully!");
       }
     } catch (err) {
-      setError("Código inválido");
+      setError("Invalid code");
     } finally {
       setLoading(false);
     }
@@ -77,9 +77,9 @@ export default function SettingsPage() {
             <Settings className="h-8 w-8 text-primary" />
           </div>
           <div>
-            <h1 className="text-2xl font-bold tracking-tight">Configurações</h1>
+            <h1 className="text-2xl font-bold tracking-tight">Settings</h1>
             <p className="text-muted-foreground mt-2">
-              Gerencie suas preferências de segurança e conta
+              Manage your security and account preferences
             </p>
           </div>
         </div>
@@ -91,10 +91,10 @@ export default function SettingsPage() {
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
               <Shield className="h-5 w-5 text-primary" />
-              Autenticação em Duas Etapas (2FA)
+              Two-Factor Authentication (2FA)
             </CardTitle>
             <CardDescription>
-              Adicione uma camada extra de segurança à sua conta
+              Add an extra layer of security to your account
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
@@ -104,9 +104,9 @@ export default function SettingsPage() {
                   <CheckCircle2 className="h-6 w-6 text-green-600" />
                 </div>
                 <div className="text-center">
-                  <p className="font-medium text-green-600">2FA Ativado</p>
+                  <p className="font-medium text-green-600">2FA Enabled</p>
                   <p className="text-sm text-muted-foreground mt-1">
-                    Sua conta está protegida com autenticação em duas etapas
+                    Your account is protected with two-factor authentication
                   </p>
                 </div>
               </div>
@@ -119,7 +119,7 @@ export default function SettingsPage() {
                     className="w-full"
                   >
                     <Lock className="mr-2 h-4 w-4" />
-                    {loading ? "Ativando..." : "Ativar 2FA"}
+                    {loading ? "Enabling..." : "Enable 2FA"}
                   </Button>
                 )}
 
@@ -128,17 +128,17 @@ export default function SettingsPage() {
                     <div className="relative aspect-square w-48 mx-auto rounded-3xl border-4 border-primary overflow-hidden bg-white p-2">
                       <Image
                         src={qrCode}
-                        alt="QR Code para 2FA"
+                        alt="QR Code for 2FA"
                         fill
                         className="object-contain"
                       />
                     </div>
                     <p className="text-sm text-center text-muted-foreground">
-                      Escaneie o QR Code com seu aplicativo autenticador
+                      Scan the QR Code with your authenticator app
                     </p>
                     <Input
                       type="text"
-                      placeholder="Digite o código de verificação"
+                      placeholder="Enter verification code"
                       value={verificationCode}
                       onChange={(e) => setVerificationCode(e.target.value)}
                       maxLength={6}
@@ -154,7 +154,7 @@ export default function SettingsPage() {
                       disabled={loading || verificationCode.length !== 6}
                       className="w-full"
                     >
-                      {loading ? "Verificando..." : "Confirmar"}
+                      {loading ? "Verifying..." : "Confirm"}
                     </Button>
                   </div>
                 )}
@@ -167,10 +167,10 @@ export default function SettingsPage() {
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
               <Key className="h-5 w-5 text-primary" />
-              Recomendações de Segurança
+              Security Recommendations
             </CardTitle>
             <CardDescription>
-              Dicas para manter sua conta protegida
+              Tips to keep your account protected
             </CardDescription>
           </CardHeader>
           <CardContent>
@@ -180,9 +180,9 @@ export default function SettingsPage() {
                   <Lock className="h-5 w-5 text-primary" />
                 </div>
                 <div>
-                  <p className="text-sm font-medium">Use senhas fortes</p>
+                  <p className="text-sm font-medium">Use strong passwords</p>
                   <p className="text-xs text-muted-foreground">
-                    Combine letras, números e símbolos
+                    Combine letters, numbers, and symbols
                   </p>
                 </div>
               </li>
@@ -191,11 +191,9 @@ export default function SettingsPage() {
                   <Shield className="h-5 w-5 text-primary" />
                 </div>
                 <div>
-                  <p className="text-sm font-medium">
-                    Mantenha seus dados seguros
-                  </p>
+                  <p className="text-sm font-medium">Keep your data secure</p>
                   <p className="text-xs text-muted-foreground">
-                    Nunca compartilhe suas credenciais
+                    Never share your credentials
                   </p>
                 </div>
               </li>

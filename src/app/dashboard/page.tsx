@@ -30,31 +30,31 @@ export default function Dashboard() {
     {
       id: "2fa",
       enabled: user?.twoFactorEnabled,
-      title: "Autenticação em duas etapas",
-      description: "Reforce sua segurança",
+      title: "Two-Factor Authentication",
+      description: "Enhance your security",
       icon: Shield,
       bgColor: "primary",
     },
     {
       id: "strongPassword",
       enabled: true,
-      title: "Senha forte",
-      description: "Use combinações seguras",
+      title: "Strong Password",
+      description: "Use secure combinations",
       icon: Key,
       bgColor: "yellow-500",
     },
     {
       id: "emailVerification",
       enabled: user?.isVerified,
-      title: "Verificação de email",
-      description: "Mantenha seus dados atualizados",
+      title: "Email Verification",
+      description: "Keep your data updated",
       icon: Bell,
       bgColor: "blue-500",
     },
   ];
 
   return (
-    <div className="flex flex-col gap-8 p-8 max-w-7xl mx-auto">
+    <div className="flex flex-col gap-8 p-4 max-w-7xl mx-auto">
       {/* Header Section */}
       <div className="flex flex-col gap-4 bg-gradient-to-r from-primary/10 to-primary/5 rounded-md p-4">
         <div className="flex items-center gap-4">
@@ -63,16 +63,16 @@ export default function Dashboard() {
           </div>
           <div>
             <h1 className="text-2xl font-bold tracking-tight">
-              Bem-vindo, {user?.name}
+              Welcome, {user?.name}
             </h1>
             <div className="flex items-center gap-3 mt-2 text-sm text-muted-foreground">
               <div className="flex items-center gap-2">
                 <CheckCircle2 className="h-4 w-4" />
                 <span>Status:</span>
                 {user?.isVerified ? (
-                  <span className="text-green-500 font-medium">Verificada</span>
+                  <span className="text-green-500 font-medium">Verified</span>
                 ) : (
-                  <span className="text-yellow-500 font-medium">Pendente</span>
+                  <span className="text-yellow-500 font-medium">Pending</span>
                 )}
               </div>
               <Separator orientation="vertical" className="h-4" />
@@ -80,11 +80,9 @@ export default function Dashboard() {
                 <Lock className="h-4 w-4" />
                 <span>2FA:</span>
                 {user?.twoFactorEnabled ? (
-                  <span className="text-green-500 font-medium">Ativado</span>
+                  <span className="text-green-500 font-medium">Enabled</span>
                 ) : (
-                  <span className="text-yellow-500 font-medium">
-                    Desativado
-                  </span>
+                  <span className="text-yellow-500 font-medium">Disabled</span>
                 )}
               </div>
             </div>
@@ -93,25 +91,25 @@ export default function Dashboard() {
       </div>
 
       {/* Stats Grid */}
-      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
         <Card className="hover:shadow-lg transition-shadow">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Segurança</CardTitle>
+            <CardTitle className="text-sm font-medium">Security</CardTitle>
             <Shield className="h-5 w-5 text-primary" />
           </CardHeader>
           <CardContent>
             <div className="text-xl font-bold text-primary">
-              {user?.twoFactorEnabled ? "Protegida" : "Básica"}
+              {user?.twoFactorEnabled ? "Protected" : "Basic"}
             </div>
             <p className="text-xs text-muted-foreground mt-1">
-              Status de proteção da conta
+              Account protection status
             </p>
           </CardContent>
         </Card>
 
         <Card className="hover:shadow-lg transition-shadow">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Último Acesso</CardTitle>
+            <CardTitle className="text-sm font-medium">Last Access</CardTitle>
             <Calendar className="h-5 w-5 text-blue-500" />
           </CardHeader>
           <CardContent>
@@ -119,38 +117,38 @@ export default function Dashboard() {
               {new Date().toLocaleDateString("pt-BR")}
             </div>
             <p className="text-xs text-muted-foreground mt-1">
-              Último login registrado
+              Last login recorded
             </p>
           </CardContent>
         </Card>
 
         <Card className="hover:shadow-lg transition-shadow">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Sessões</CardTitle>
+            <CardTitle className="text-sm font-medium">Sessions</CardTitle>
             <Users className="h-5 w-5 text-green-500" />
           </CardHeader>
           <CardContent>
-            <div className="text-xl font-bold">1 ativa</div>
+            <div className="text-xl font-bold">1 active</div>
             <p className="text-xs text-muted-foreground mt-1">
-              Dispositivos conectados
+              Connected devices
             </p>
           </CardContent>
         </Card>
       </div>
 
       {/* Activity and Tips Section */}
-      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-7">
+      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-7">
         <Card className="col-span-4 hover:shadow-lg transition-shadow">
           <CardHeader className="flex flex-row items-center justify-between">
             <div>
               <CardTitle className="flex items-center gap-2">
                 <Activity className="h-5 w-5 text-primary" />
-                Atividade Recente
+                Recent Activity
               </CardTitle>
-              <CardDescription>Monitoramento de ações na conta</CardDescription>
+              <CardDescription>Account activity monitoring</CardDescription>
             </div>
             <Button variant="outline" size="sm">
-              Ver todas
+              View all
             </Button>
           </CardHeader>
           <CardContent>
@@ -158,7 +156,7 @@ export default function Dashboard() {
               <div className="flex items-center gap-4">
                 <FileText className="h-8 w-8 text-muted-foreground/50" />
                 <p className="text-sm text-muted-foreground">
-                  Seu histórico de atividades aparecerá aqui.
+                  Your activity history will appear here.
                 </p>
               </div>
             </div>
@@ -169,9 +167,9 @@ export default function Dashboard() {
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
               <Settings className="h-5 w-5 text-primary" />
-              Recomendações
+              Recommendations
             </CardTitle>
-            <CardDescription>Otimize a segurança da sua conta</CardDescription>
+            <CardDescription>Optimize your account security</CardDescription>
           </CardHeader>
           <CardContent>
             <ul className="space-y-4">
@@ -202,9 +200,9 @@ export default function Dashboard() {
                     <CheckCircle2 className="h-5 w-5 text-green-500" />
                   </div>
                   <div>
-                    <p className="text-sm font-medium">Tudo configurado!</p>
+                    <p className="text-sm font-medium">All set!</p>
                     <p className="text-xs text-muted-foreground">
-                      Sua conta está bem protegida
+                      Your account is well protected
                     </p>
                   </div>
                 </li>

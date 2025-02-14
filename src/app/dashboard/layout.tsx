@@ -31,7 +31,7 @@ export default function DashboardLayout({
 
   const handleLogout = async () => {
     await logout();
-    router.replace("/login/signin");
+    router.replace("/signin");
   };
 
   return (
@@ -62,7 +62,7 @@ export default function DashboardLayout({
                     <SidebarMenuButton asChild>
                       <Link href="/dashboard/settings">
                         <Settings />
-                        <span>Configurações</span>
+                        <span>Settings</span>
                       </Link>
                     </SidebarMenuButton>
                   </SidebarMenuItem>
@@ -72,7 +72,7 @@ export default function DashboardLayout({
           </SidebarContent>
 
           <SidebarFooter>
-            <SidebarGroupLabel>Usuário</SidebarGroupLabel>
+            <SidebarGroupLabel>User</SidebarGroupLabel>
             <SidebarGroupContent>
               <div className="px-4 py-2">
                 <div className="flex items-center gap-3 mb-4">
@@ -92,26 +92,24 @@ export default function DashboardLayout({
                     </span>
                   </div>
                 </div>
-                <SidebarMenuButton
-                  variant="outline"
-                  className="w-full justify-start text-destructive hover:text-destructive-foreground hover:bg-destructive"
-                  onClick={handleLogout}
-                >
-                  <LogOut />
-                  <span className="text-sm font-bold">Sair</span>
-                </SidebarMenuButton>
+                <div className="flex justify-between gap-4">
+                  <SidebarMenuButton
+                    variant="outline"
+                    className="w-auto text-destructive hover:text-destructive-foreground hover:bg-destructive"
+                    onClick={handleLogout}
+                  >
+                    <LogOut />
+                    <span className="text-sm font-bold">Logout</span>
+                  </SidebarMenuButton>
+                  <ThemeToggle />
+                </div>
               </div>
             </SidebarGroupContent>
           </SidebarFooter>
         </Sidebar>
 
         <main className="flex-1 w-full overflow-y-auto">
-          <div className="absolute top-0 right-1">
-            <SidebarTrigger />
-          </div>
-          <div className="absolute top-0 right-8">
-            <ThemeToggle />
-          </div>
+          <SidebarTrigger />
           <div className="h-full">{children}</div>
         </main>
       </div>

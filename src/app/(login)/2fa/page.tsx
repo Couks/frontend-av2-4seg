@@ -37,11 +37,11 @@ function TwoFactorAuthContent() {
           <Shield className="h-12 w-12 text-primary" />
         </div>
         <CardTitle className="text-2xl font-bold">
-          Verificação em Duas Etapas
+          Two-Factor Authentication
         </CardTitle>
         <CardDescription className="text-muted-foreground flex items-center justify-center gap-2">
           <KeyRound className="h-4 w-4" />
-          Digite o código de 6 dígitos do seu aplicativo autenticador
+          Enter the 6-digit code from your authenticator app
         </CardDescription>
       </CardHeader>
       <CardContent>
@@ -69,10 +69,10 @@ function TwoFactorAuthContent() {
               disabled={loading || code.length !== 6}
             >
               {loading ? (
-                "Verificando..."
+                "Verifying..."
               ) : (
                 <>
-                  Verificar
+                  Verify
                   <ArrowRight className="ml-2 h-4 w-4" />
                 </>
               )}
@@ -87,7 +87,7 @@ function TwoFactorAuthContent() {
 export default function TwoFactorAuthPage() {
   return (
     <main className="flex items-center justify-center min-h-screen p-8 bg-background">
-      <Suspense fallback={<div>Carregando...</div>}>
+      <Suspense fallback={<div>Loading...</div>}>
         <TwoFactorAuthContent />
       </Suspense>
     </main>

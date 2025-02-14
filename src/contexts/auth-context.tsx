@@ -36,11 +36,9 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const fetchUserData = async (token: string) => {
     try {
       const validationResponse = await api.token.validate(token);
-      console.log("Token validation response:", validationResponse);
 
       if (validationResponse.valid) {
         const userData = await api.user.me();
-        console.log("User data:", userData);
 
         setUser({
           id: userData.id,
@@ -67,7 +65,6 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     try {
       setError(null);
       const response = await api.auth.login({ email, password });
-      console.log("Login response:", response);
 
       const { accessToken, refreshToken, tempToken } = response;
 
@@ -124,7 +121,6 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     try {
       setError(null);
       const response = await api.auth.logout();
-      console.log("Logout response:", response);
     } catch (error) {
       console.error("Erro no logout:", error);
       setError("Erro ao realizar logout");

@@ -34,9 +34,7 @@ export default function ForgotPasswordPage() {
       setSuccess(true);
     } catch (err) {
       const error = err as AxiosError<{ message: string }>;
-      setError(
-        error.response?.data?.message || "Erro ao solicitar recuperação"
-      );
+      setError(error.response?.data?.message || "Error requesting recovery");
     } finally {
       setLoading(false);
     }
@@ -49,7 +47,7 @@ export default function ForgotPasswordPage() {
           variant="ghost"
           size="icon"
           className="absolute left-4 top-4"
-          onClick={() => router.push("/login/signin")}
+          onClick={() => router.push("/signin")}
         >
           <ArrowLeft className="h-4 w-4" />
         </Button>
@@ -57,10 +55,10 @@ export default function ForgotPasswordPage() {
           <div className="flex justify-center mb-4">
             <Shield className="h-12 w-12 text-primary" />
           </div>
-          <CardTitle className="text-2xl font-bold">Recuperar Senha</CardTitle>
+          <CardTitle className="text-2xl font-bold">Forgot Password</CardTitle>
           <CardDescription className="text-muted-foreground flex items-center justify-center gap-2">
             <Mail className="h-4 w-4" />
-            Digite seu email para receber as instruções
+            Enter your email to receive instructions
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -69,7 +67,7 @@ export default function ForgotPasswordPage() {
               <Input
                 type="email"
                 className="w-full"
-                placeholder="Digite seu email"
+                placeholder="Enter your email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
@@ -83,7 +81,7 @@ export default function ForgotPasswordPage() {
               {success && (
                 <AlertDescription className="text-green-500 text-sm flex items-center gap-2">
                   <AlertCircle className="h-4 w-4" />
-                  Instruções enviadas para seu email
+                  Instructions sent to your email
                 </AlertDescription>
               )}
               <Button
@@ -92,10 +90,10 @@ export default function ForgotPasswordPage() {
                 disabled={loading}
               >
                 {loading ? (
-                  "Enviando..."
+                  "Sending..."
                 ) : (
                   <>
-                    Enviar Instruções
+                    Send Instructions
                     <ArrowRight className="ml-2 h-4 w-4" />
                   </>
                 )}

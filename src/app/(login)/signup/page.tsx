@@ -62,13 +62,13 @@ const validateField = (name: string, value: string): string => {
   switch (name) {
     case "nome":
       return value.trim().length < 2
-        ? "Nome deve ter ao menos dois caracteres"
+        ? "Name must have at least two characters"
         : "";
     case "email":
-      return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value) ? "" : "Email inválido";
+      return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value) ? "" : "Invalid email";
     case "senha":
       return value.trim().length < 8
-        ? "A senha deve ter pelo menos 8 caracteres"
+        ? "Password must have at least 8 characters"
         : "";
     default:
       return "";
@@ -113,7 +113,9 @@ const useSignupController = () => {
       const isValid = Object.values(checks).every(Boolean);
       setErrors((prev) => ({
         ...prev,
-        senha: isValid ? "" : "Sua senha não atende aos critérios de segurança",
+        senha: isValid
+          ? ""
+          : "Your password does not meet the security criteria",
       }));
 
       if (isValid) {
@@ -149,10 +151,10 @@ const useSignupController = () => {
       });
       return true;
     } catch (error) {
-      console.error("Erro ao registrar usuário:", error);
+      console.error("Error registering user:", error);
       setErrors((prev) => ({
         ...prev,
-        submit: "Erro ao criar conta. Por favor, tente novamente.",
+        submit: "Error creating account. Please try again.",
       }));
       return false;
     } finally {
@@ -208,9 +210,7 @@ export default function SignupComponent() {
   const onSubmit = async (e: React.FormEvent) => {
     const result = await handleSubmit(e);
     if (result) {
-      router.push(
-        `/login/verify-email?email=${encodeURIComponent(formData.email)}`
-      );
+      router.push(`/verify-email?email=${encodeURIComponent(formData.email)}`);
     }
   };
 
@@ -218,13 +218,13 @@ export default function SignupComponent() {
     <main className="flex min-h-screen items-center justify-center bg-gradient-to-b from-background to-secondary/20 p-4 sm:p-8">
       <Card className="w-full max-w-xl mx-auto shadow-xl">
         <CardHeader className="space-y-4 text-center">
-          <div className="flex justify-center">
-            <UserPlus size={48} className="text-primary animate-pulse" />
+          <div className="flex items-center justify-center gap-2">
+            <CardTitle className="text-xl font-bold">Sign Up</CardTitle>
+            <UserPlus size={24} className="text-primary animate-pulse" />
           </div>
           <div>
-            <CardTitle className="text-3xl font-bold">Cadastro</CardTitle>
-            <CardDescription className="text-lg mt-2">
-              Crie sua conta e comece a jornada
+            <CardDescription className="text-lg">
+              Create your account and start your journey
             </CardDescription>
           </div>
         </CardHeader>
@@ -241,7 +241,7 @@ export default function SignupComponent() {
                   id="nome"
                   name="nome"
                   type="text"
-                  placeholder="Nome completo"
+                  placeholder="Full name"
                   value={formData.nome}
                   onChange={handleChange}
                   className="pl-10"
@@ -266,7 +266,7 @@ export default function SignupComponent() {
                   id="email"
                   name="email"
                   type="email"
-                  placeholder="E-mail"
+                  placeholder="Email"
                   value={formData.email}
                   onChange={handleChange}
                   className="pl-10"
@@ -291,7 +291,7 @@ export default function SignupComponent() {
                   id="senha"
                   name="senha"
                   type={showPassword ? "text" : "password"}
-                  placeholder="Digite sua senha"
+                  placeholder="Enter your password"
                   value={formData.senha}
                   onChange={handleChange}
                   className="pl-10"
@@ -322,7 +322,7 @@ export default function SignupComponent() {
                     size={20}
                   />
                   <span className="text-green-700 text-sm font-medium">
-                    Parabéns! Sua senha atende os critérios de segurança
+                    Congratulations! Your password meets the security criteria
                   </span>
                 </div>
               </div>
@@ -330,29 +330,29 @@ export default function SignupComponent() {
               formData.senha && (
                 <div className="bg-card/50 border rounded-lg p-4 space-y-2 shadow-sm">
                   <h4 className="font-medium text-sm mb-2">
-                    Requisitos da senha:
+                    Password requirements:
                   </h4>
                   <PasswordCheckItem
                     isValid={passwordChecks.hasNumber}
-                    text="Conter ao menos um número"
+                    text="Must contain at least one number"
                   />
                   <PasswordCheckItem
                     isValid={passwordChecks.hasSpecialChar}
-                    text="Conter ao menos um caracter especial"
+                    text="Must contain at least one special character"
                   />
                   <PasswordCheckItem
                     isValid={
                       passwordChecks.hasUpperCase && passwordChecks.hasLowerCase
                     }
-                    text="Conter letras maiúsculas e minúsculas"
+                    text="Must contain uppercase and lowercase letters"
                   />
                   <PasswordCheckItem
                     isValid={passwordChecks.atLeast8Chars}
-                    text="Ter ao menos 8 caracteres"
+                    text="Must be at least 8 characters"
                   />
                   <PasswordCheckItem
                     isValid={passwordChecks.noInsecureChars}
-                    text="Não conter caracteres inseguros"
+                    text="Must not contain insecure characters"
                   />
                 </div>
               )
@@ -372,19 +372,19 @@ export default function SignupComponent() {
                 className="w-full text-lg py-6 transition-all duration-200 hover:scale-[1.02]"
                 disabled={loading}
               >
-                {loading ? "Criando conta..." : "Criar conta"}
+                {loading ? "Creating account..." : "Create account"}
               </Button>
             )}
           </form>
         </CardContent>
         <CardFooter className="flex justify-center pb-8">
           <span className="text-muted-foreground">
-            Já tem uma conta?{" "}
+            Already have an account?{" "}
             <Link
-              href="/login/signin"
+              href="/signin"
               className="text-primary font-semibold hover:underline transition-colors"
             >
-              Faça login
+              Sign in
             </Link>
           </span>
         </CardFooter>

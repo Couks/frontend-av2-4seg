@@ -15,9 +15,8 @@ export default function SuccessPage() {
   const router = useRouter();
 
   useEffect(() => {
-    // Redireciona para o login após 5 segundos
     const timer = setTimeout(() => {
-      router.push("/login/signin");
+      router.push("/signin");
     }, 5000);
 
     return () => clearTimeout(timer);
@@ -31,16 +30,16 @@ export default function SuccessPage() {
             <CheckCircle2 className="h-16 w-16 text-green-500" />
           </div>
           <CardTitle className="text-2xl text-green-500">
-            Conta Verificada com Sucesso!
+            Account Verified Successfully!
           </CardTitle>
           <CardDescription>
-            Você será redirecionado para a página de login em instantes...
+            You will be redirected to the login page shortly...
           </CardDescription>
         </CardHeader>
         <CardContent>
           <div className="text-muted-foreground">
-            <p>Obrigado por verificar sua conta.</p>
-            <p>Por favor, faça login para acessar a plataforma.</p>
+            <p>Thank you for verifying your account.</p>
+            <p>Please log in to access the platform.</p>
           </div>
         </CardContent>
       </Card>
