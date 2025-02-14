@@ -6,6 +6,15 @@ const API_URL = "https://backend-av2-4seg.onrender.com";
 // Criar instância do axios
 const axiosInstance = axios.create({
   baseURL: API_URL,
+  // Configurações do CORS
+  withCredentials: true, // Permite enviar cookies em requisições cross-origin
+  headers: {
+    'Content-Type': 'application/json',
+    'Accept': 'application/json',
+    'Access-Control-Allow-Origin': '*',
+    'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE,PATCH,OPTIONS',
+    'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept, Authorization'
+  }
 });
 
 // Variáveis para controle do refresh
@@ -39,6 +48,8 @@ axiosInstance.interceptors.request.use(
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
     }
+    // Garantir que os headers CORS sejam mantidos
+    config.headers['Access-Control-Allow-Origin'] = '*';
     return config;
   },
   (error) => Promise.reject(error)
