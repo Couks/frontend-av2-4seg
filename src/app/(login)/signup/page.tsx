@@ -215,7 +215,7 @@ export default function SignupComponent() {
   };
 
   return (
-    <main className="flex max-h-screen items-center justify-center bg-gradient-to-b from-background to-secondary/20 p-4 sm:p-8">
+    <main className="flex min-h-screen items-center justify-center bg-gradient-to-b from-background to-secondary/20 p-4 sm:p-8">
       <Card className="w-full max-w-xl mx-auto shadow-xl">
         <CardHeader className="space-y-4 text-center">
           <div className="flex items-center justify-center gap-2">

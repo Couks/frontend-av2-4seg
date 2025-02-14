@@ -5,7 +5,7 @@ import { ThemeToggle } from "@/components/theme-toggle";
 
 export default function Home() {
   return (
-    <div className="min-h-screen bg-gray-200 dark:bg-gray-900">
+    <div className="min-h-screen dark:bg-background">
       <main className="container mx-auto flex flex-col items-center justify-center gap-4 px-4 py-4">
         <ThemeToggle />
         <div className="flex flex-col items-center gap-4">
